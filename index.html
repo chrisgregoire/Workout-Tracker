@@ -101,7 +101,7 @@ function render(){weeks.innerHTML=W.map(x=>`<button class='${x==week?'active':''
             h += '<h2 style="color:#22c55e;">Arm Superset</h2>';
         }
     }
-    h += '<div class=exercise><b>'+e[0]+'</b>';h+='<div class=exercise><b>'+e[0]+'</b><table><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr>';e[1].forEach((t,j)=>{h+='<tr><td>'+t+'</td><td><input data-k='+i+'_'+j+'_w></td><td><input data-k='+i+'_'+j+'_r></td><td><input data-k='+i+'_'+j+'_e></td></tr>'});h+='</table><textarea data-k='+i+'_notes placeholder=Notes></textarea><label><input type=checkbox data-k='+i+'_done> Exercise Complete</label></div>'});if(d.rest)h+="<textarea data-k=rest placeholder='Recovery / Mobility'></textarea>";h+='</div>';content.innerHTML=h;document.querySelectorAll('input,textarea').forEach(x=>{
+    h+='<div class=exercise><b>'+e[0]+'</b><table><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr>';e[1].forEach((t,j)=>{h+='<tr><td>'+t+'</td><td><input data-k='+i+'_'+j+'_w></td><td><input data-k='+i+'_'+j+'_r></td><td><input data-k='+i+'_'+j+'_e></td></tr>'});h+='</table><textarea data-k='+i+'_notes placeholder=Notes></textarea><label><input type=checkbox data-k='+i+'_done> Exercise Complete</label></div>'});if(d.rest)h+="<textarea data-k=rest placeholder='Recovery / Mobility'></textarea>";h+='</div>';content.innerHTML=h;document.querySelectorAll('input,textarea').forEach(x=>{
     x.addEventListener('change', save);
     x.addEventListener('input', save);
 });load();stats()}
@@ -172,4 +172,6 @@ document
     importData(file);
 });
   render();</script></body></html>
+
+
 
