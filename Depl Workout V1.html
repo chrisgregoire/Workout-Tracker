@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Deployment Tracker V6</title><style>body{font-family:Arial;margin:0;background:#111827;color:#f3f4f6}header{background:#1f2937;padding:12px;position:sticky;top:0}#weeks,#days{display:flex;flex-wrap:wrap;gap:6px;padding:8px}button{padding:10px;border:0;border-radius:8px;background:#374151;color:#fff}button.active{background:#16a34a}.card{background:#1f2937;margin:10px;padding:12px;border-radius:10px}.exercise{border:1px solid #4b5563;margin:8px 0;padding:8px;border-radius:8px}table{width:100%;border-collapse:collapse}td,th{border:1px solid #4b5563;padding:4px}input,textarea{width:100%;box-sizing:border-box;background:#111827;color:#fff;border:1px solid #4b5563;padding:6px;border-radius:4px}.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px}</style></head><body><header><h2>Deployment Workout Tracker V6</h2><div id="status"></div></header><div class='card stats'>
+<div id=completion></div>
+<div id=current></div>
+
+<div>
+<button onclick="exportData()">
+Export Backup
+</button>
+
+<button onclick="document.getElementById('backupFile').click()">
+Import Backup
+</button>
+
+<input
+id="backupFile"
+type="file"
+accept=".json"
+style="display:none">
+</div>
+
+</div><div id="weeks"><button class="active" onclick="week='Week 1';render()">Week 1</button><button class="" onclick="week='Week 2';render()">Week 2</button><button class="" onclick="week='Week 3';render()">Week 3</button><button class="" onclick="week='Week 4';render()">Week 4</button></div><div id="days"><button class="active" onclick="day='Monday';render()">Monday</button><button class="" onclick="day='Tuesday';render()">Tuesday</button><button class="" onclick="day='Wednesday';render()">Wednesday</button><button class="" onclick="day='Thursday';render()">Thursday</button><button class="" onclick="day='Friday';render()">Friday</button><button class="" onclick="day='Saturday';render()">Saturday</button><button class="" onclick="day='Sunday';render()">Sunday</button></div><div id="content"><div class="card"><h3>Week 1 - Monday</h3>Distance<input data-k="dist">Duration<input data-k="dur">Pace<input data-k="pace">Pain<input data-k="pain"><textarea data-k="notes" placeholder="Run notes"></textarea><label><input type="checkbox" data-k="run_done"> Run Complete</label><div class="exercise"><b>Reverse Sled Drag</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>60s@90</td><td><input data-k="0_0_w"></td><td><input data-k="0_0_r"></td><td><input data-k="0_0_e"></td></tr><tr><td>60s@90</td><td><input data-k="0_1_w"></td><td><input data-k="0_1_r"></td><td><input data-k="0_1_e"></td></tr></tbody></table><textarea data-k="0_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="0_done"> Exercise Complete</label></div><div class="exercise"><b>Broad Jump</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>3</td><td><input data-k="1_0_w"></td><td><input data-k="1_0_r"></td><td><input data-k="1_0_e"></td></tr><tr><td>3</td><td><input data-k="1_1_w"></td><td><input data-k="1_1_r"></td><td><input data-k="1_1_e"></td></tr><tr><td>3</td><td><input data-k="1_2_w"></td><td><input data-k="1_2_r"></td><td><input data-k="1_2_e"></td></tr></tbody></table><textarea data-k="1_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="1_done"> Exercise Complete</label></div><div class="exercise"><b>Deadlift</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>245x6</td><td><input data-k="2_0_w"></td><td><input data-k="2_0_r"></td><td><input data-k="2_0_e"></td></tr><tr><td>245x5</td><td><input data-k="2_1_w"></td><td><input data-k="2_1_r"></td><td><input data-k="2_1_e"></td></tr><tr><td>245x5</td><td><input data-k="2_2_w"></td><td><input data-k="2_2_r"></td><td><input data-k="2_2_e"></td></tr></tbody></table><textarea data-k="2_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="2_done"> Exercise Complete</label></div><div class="exercise"><b>FF Elevated Reverse Lunge</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>155x6</td><td><input data-k="3_0_w"></td><td><input data-k="3_0_r"></td><td><input data-k="3_0_e"></td></tr><tr><td>135x7</td><td><input data-k="3_1_w"></td><td><input data-k="3_1_r"></td><td><input data-k="3_1_e"></td></tr><tr><td>135x7</td><td><input data-k="3_2_w"></td><td><input data-k="3_2_r"></td><td><input data-k="3_2_e"></td></tr></tbody></table><textarea data-k="3_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="3_done"> Exercise Complete</label></div><div class="exercise"><b>Leg Extensions</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>130x15</td><td><input data-k="4_0_w"></td><td><input data-k="4_0_r"></td><td><input data-k="4_0_e"></td></tr><tr><td>130x15</td><td><input data-k="4_1_w"></td><td><input data-k="4_1_r"></td><td><input data-k="4_1_e"></td></tr><tr><td>130x12</td><td><input data-k="4_2_w"></td><td><input data-k="4_2_r"></td><td><input data-k="4_2_e"></td></tr></tbody></table><textarea data-k="4_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="4_done"> Exercise Complete</label></div><div class="exercise"><b>Hamstring Curls</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>130x12</td><td><input data-k="5_0_w"></td><td><input data-k="5_0_r"></td><td><input data-k="5_0_e"></td></tr><tr><td>130x12</td><td><input data-k="5_1_w"></td><td><input data-k="5_1_r"></td><td><input data-k="5_1_e"></td></tr><tr><td>130x12</td><td><input data-k="5_2_w"></td><td><input data-k="5_2_r"></td><td><input data-k="5_2_e"></td></tr></tbody></table><textarea data-k="5_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="5_done"> Exercise Complete</label></div><div class="exercise"><b>Copenhagen</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>30s</td><td><input data-k="6_0_w"></td><td><input data-k="6_0_r"></td><td><input data-k="6_0_e"></td></tr><tr><td>30s</td><td><input data-k="6_1_w"></td><td><input data-k="6_1_r"></td><td><input data-k="6_1_e"></td></tr></tbody></table><textarea data-k="6_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="6_done"> Exercise Complete</label></div><div class="exercise"><b>Calf Raises Seated</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>70 8-12</td><td><input data-k="7_0_w"></td><td><input data-k="7_0_r"></td><td><input data-k="7_0_e"></td></tr><tr><td>70 8-12</td><td><input data-k="7_1_w"></td><td><input data-k="7_1_r"></td><td><input data-k="7_1_e"></td></tr></tbody></table><textarea data-k="7_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="7_done"> Exercise Complete</label></div><div class="exercise"><b>Bent Over Rotation</b><table><tbody><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr><tr><td>60x8</td><td><input data-k="8_0_w"></td><td><input data-k="8_0_r"></td><td><input data-k="8_0_e"></td></tr><tr><td>60x8</td><td><input data-k="8_1_w"></td><td><input data-k="8_1_r"></td><td><input data-k="8_1_e"></td></tr></tbody></table><textarea data-k="8_notes" placeholder="Notes"></textarea><label><input type="checkbox" data-k="8_done"> Exercise Complete</label></div></div></div><script>
+const W=['Week 1','Week 2','Week 3','Week 4'];const D=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];let week='Week 1',day='Monday';
+const P={Monday:{run:false,ex:[['Reverse Sled Drag',['60s@90','60s@90']],['Broad Jump',['3','3','3']],['Deadlift',['245x6','245x5','245x5']],['FF Elevated Reverse Lunge',['155x6','135x7','135x7']],['Leg Extensions',['130x15','130x15','130x12']],['Hamstring Curls',['130x12','130x12','130x12']],['Copenhagen',['30s','30s']],['Calf Raises Seated',['70x8-12','70x8-12']],['Bent Over Rotation',['60x8','60x8']]]},Tuesday:{run:true,ex:[['IYW with band',['60s light','60s light']],['Smith Machine Bench Throw',['95x5','95x5','95x5']],['Bench',['225x3-5','191.25x8-12','191.25x8-12']],['Seal Row/BB Row',['175x6-8','175x6-8','135x10-12','135x10-12']],['Medium Incline DB Bench',['70x8-12','70x8-12','70x8-12']],['DB Upright Rows',['35x8-12','35x8-12','35x8-12']],['Lateral Raises',['15x12-15','15x12-15','15x12-15']],['Bicep Curls (Hammer)',['35x8-12','35x8-12','35x8-12']],['Suit Case Carries',['60s KB','60s KB','60s KB']]]},Wednesday:{run:true},Thursday:{ex:[['Single Leg Bridge',['30s ea','30s']],['Lateral Hops',['3','3','3']],['Back Squat',['125x10-12','125x10-12','125x10-12']],['Single Leg Landmine RDL',['80x6-8','80x6-8','80x6-8']],['Cossack Squats',['60 x 8ea','60 x 8ea','60 x 8ea']],['GHD',['6-8','15','15']],['Abduct Machine',['12-15','12-15','12-15']],['Adduct Machine',['12-15','12-15','12-15']],['Crunch Machine/T2B',['12-15']]]},Friday:{ex:[['Banded Pull Aparts',['15 ea','15 ea','15 ea']],['Banded Pushups',['5','5','5']],['Push Press',['155x3-5','116.25x8-12','116.25x8-12','116.25x8-12']],['Weighted Pullups',['70x3-5','25x8-12','25x8-12','25x8-12']],['Weighted Pushups',['35x15-20','35x15-20','35x15-20','35x15-20']],['Inverted Rows',['25x8-12','25x8-12','25x8-12','25x8-12']],['Rear Delt Flys',['12-15','12-15']],['Chest Flys',['12-15','12-15']],['Skull Crushers',['60x12-15','60x12-15','60x12-15']],['Curls (palms up)',['60x12-15','60x12-15','60x12-15']]]},Saturday:{run:true},Sunday:{rest:true}};
+function storeKey(){return week+'_'+day};function save(){let o={};document.querySelectorAll('[data-k]').forEach(e=>o[e.dataset.k]=e.type==='checkbox'?e.checked:e.value);localStorage.setItem(storeKey(),JSON.stringify(o));stats()}function load(){let o=JSON.parse(localStorage.getItem(storeKey())||'{}');document.querySelectorAll('[data-k]').forEach(e=>{if(o[e.dataset.k]!=null){if(e.type==='checkbox')e.checked=o[e.dataset.k];else e.value=o[e.dataset.k]}})}
+function stats(){let tot=0,done=0;for(let i=0;i<localStorage.length;i++){let k=localStorage.key(i);if(k.includes('Week')){let o=JSON.parse(localStorage.getItem(k)||'{}');Object.entries(o).forEach(([a,b])=>{if(a.endsWith('_done')){tot++;if(b)done++;}})}}document.getElementById('completion').innerHTML='<b>Overall Completion</b><br>'+(tot?Math.round(done/tot*100):0)+'%';document.getElementById('current').innerHTML='<b>'+week+'</b><br>'+day;document.getElementById('status').textContent=week+' | '+day}
+function render(){weeks.innerHTML=W.map(x=>`<button class='${x==week?'active':''}' onclick="week='${x}';render()">${x}</button>`).join('');days.innerHTML=D.map(x=>`<button class='${x==day?'active':''}' onclick="day='${x}';render()">${x}</button>`).join('');let d=P[day],h='<div class=card><h3>'+week+' - '+day+'</h3>';if(d.run)h+="Distance<input data-k=dist>Duration<input data-k=dur>Pace<input data-k=pace>Pain<input data-k=pain><textarea data-k=notes placeholder='Run notes'></textarea><label><input type=checkbox data-k=run_done> Run Complete</label>";if(d.ex)d.ex.forEach((e,i)=>{
+
+    // Monday sections
+    if(day === 'Monday'){
+        if(i === 0){
+            h += '<h2 style="color:#22c55e;">Warmup/Plyos</h2>';
+        }
+        if(i === 2){
+            h += '<h2 style="color:#22c55e;">Strength</h2>';
+        }
+        if(i === 4){
+            h += '<h2 style="color:#22c55e;"> Leg Accessories</h2>';
+        }
+      	if (i === 6){
+          	h += '<h2 style="color:#22c55e;"> GPP</h2>'
+        }
+    }
+
+    // Tuesday sections
+    if(day === 'Tuesday'){
+        if(i === 0){
+            h += '<h2 style="color:#22c55e;">Warmup/Plyos</h2>';
+        }
+        if(i === 2){
+            h += '<h2 style="color:#22c55e;">Main Lifts</h2>';
+        }
+        if(i === 4){
+            h += '<h2 style="color:#22c55e;">A1/A2</h2>';
+        }
+        if(i === 6){
+            h += '<h2 style="color:#22c55e;">B1/B2</h2>';
+        }
+        if(i === 8){
+            h += '<h2 style="color:#22c55e;">Core</h2>';
+        }
+    }
+
+    // Wednesday Section
+    if(day === 'Wednesday'){
+        if(i === 0){
+            h += '<h2 style="color:#22c55e;">Run</h2>';
+        }
+    }
+  
+      // Thursday
+    if(day === 'Thursday'){
+        if(i === 0){
+            h += '<h2 style="color:#22c55e;">Warmup/Plyos</h2>';
+        }
+        if(i === 2){
+            h += '<h2 style="color:#22c55e;">Main Lifts</h2>';
+        }
+        if(i === 4){
+            h += '<h2 style="color:#22c55e;">Accessory A1/A2</h2>';
+        }
+        if(i === 6){
+            h += '<h2 style="color:#22c55e;">GPP</h2>';
+        }
+    }
+      // Friday
+    if(day === 'Friday'){
+        if(i === 0){
+            h += '<h2 style="color:#22c55e;">Warmup/Plyos</h2>';
+        }
+        if(i === 2){
+            h += '<h2 style="color:#22c55e;">Main Lifts</h2>';
+        }
+        if(i === 4){
+            h += '<h2 style="color:#22c55e;">Accessory A1/A2</h2>';
+        }
+        if(i === 6){
+            h += '<h2 style="color:#22c55e;">Chest/Back Accessory</h2>';
+        }
+        if(i === 8){
+            h += '<h2 style="color:#22c55e;">Arm Superset</h2>';
+        }
+    }
+    h += '<div class=exercise><b>'+e[0]+'</b>';h+='<div class=exercise><b>'+e[0]+'</b><table><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr>';e[1].forEach((t,j)=>{h+='<tr><td>'+t+'</td><td><input data-k='+i+'_'+j+'_w></td><td><input data-k='+i+'_'+j+'_r></td><td><input data-k='+i+'_'+j+'_e></td></tr>'});h+='</table><textarea data-k='+i+'_notes placeholder=Notes></textarea><label><input type=checkbox data-k='+i+'_done> Exercise Complete</label></div>'});if(d.rest)h+="<textarea data-k=rest placeholder='Recovery / Mobility'></textarea>";h+='</div>';content.innerHTML=h;document.querySelectorAll('input,textarea').forEach(x=>{
+    x.addEventListener('change', save);
+    x.addEventListener('input', save);
+});load();stats()}
+  function exportData(){
+
+    let allData = {};
+
+    for(let i=0;i<localStorage.length;i++){
+
+        let key = localStorage.key(i);
+
+        if(key.includes("Week")){
+
+            allData[key] =
+                localStorage.getItem(key);
+
+        }
+    }
+
+    let blob = new Blob(
+        [JSON.stringify(allData,null,2)],
+        {type:"application/json"}
+    );
+
+    let a = document.createElement("a");
+
+    a.href = URL.createObjectURL(blob);
+
+    a.download = "WorkoutBackup.json";
+
+    a.click();
+}
+
+function importData(file){
+
+    let reader = new FileReader();
+
+    reader.onload = ()=>{
+
+        let backup =
+            JSON.parse(reader.result);
+
+        Object.keys(backup).forEach(key=>{
+
+            localStorage.setItem(
+                key,
+                backup[key]
+            );
+
+        });
+
+        alert("Backup restored");
+
+        render();
+    };
+
+    reader.readAsText(file);
+}
+
+document
+.getElementById("backupFile")
+.addEventListener("change",e=>{
+
+    let file = e.target.files[0];
+
+    if(!file) return;
+
+    importData(file);
+});
+  render();</script></body></html>
+
+
+
