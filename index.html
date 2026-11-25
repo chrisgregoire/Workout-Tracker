@@ -101,7 +101,23 @@ function render(){weeks.innerHTML=W.map(x=>`<button class='${x==week?'active':''
             h += '<h2 style="color:#22c55e;">Arm Superset</h2>';
         }
     }
-    h+='<div class=exercise><b>'+e[0]+'</b><table><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr>';e[1].forEach((t,j)=>{h+='<tr><td>'+t+'</td><td><input data-k='+i+'_'+j+'_w></td><td><input data-k='+i+'_'+j+'_r></td><td><input data-k='+i+'_'+j+'_e></td></tr>'});h+='</table><textarea data-k='+i+'_notes placeholder=Notes></textarea><label><input type=checkbox data-k='+i+'_done> Exercise Complete</label></div>'});if(d.rest)h+="<textarea data-k=rest placeholder='Recovery / Mobility'></textarea>";h+='</div>';content.innerHTML=h;document.querySelectorAll('input,textarea').forEach(x=>{
+    h+='<div class=exercise><b>'+e[0]+'</b><table><tr><th>Target</th><th>Actual Wt</th><th>Actual Reps</th><th>RPE</th></tr>';e[1].forEach((t,j)=>{h+='<tr><td>'+t+'</td><td><input data-k='+i+'_'+j+'_w></td><td><input data-k='+i+'_'+j+'_r></td><td><input data-k='+i+'_'+j+'_e></td></tr>'});h += `
+</table>
+
+<button type="button"
+onclick="applyToAll(${i})">
+Apply First Set To Blank Sets
+</button>
+
+<textarea data-k=${i}_notes placeholder=Notes></textarea>
+
+<label>
+<input type=checkbox data-k=${i}_done>
+Exercise Complete
+</label>
+
+</div>
+`;});if(d.rest)h+="<textarea data-k=rest placeholder='Recovery / Mobility'></textarea>";h+='</div>';content.innerHTML=h;document.querySelectorAll('input,textarea').forEach(x=>{
     x.addEventListener('change', save);
     x.addEventListener('input', save);
 });load();stats()}
@@ -171,6 +187,37 @@ document
 
     importData(file);
 });
+  function applyToAll(exerciseIndex){
+
+    const weightInputs =
+        document.querySelectorAll(
+            '[data-k^="' + exerciseIndex + '_"][data-k$="_w"]'
+        );
+
+    const repInputs =
+        document.querySelectorAll(
+            '[data-k^="' + exerciseIndex + '_"][data-k$="_r"]'
+        );
+
+    if(weightInputs.length === 0) return;
+
+    const firstWeight = weightInputs[0].value;
+    const firstReps = repInputs[0].value;
+
+    for(let i = 1; i < weightInputs.length; i++){
+
+        if(weightInputs[i].value === ''){
+            weightInputs[i].value = firstWeight;
+        }
+
+        if(repInputs[i].value === ''){
+            repInputs[i].value = firstReps;
+        }
+
+    }
+
+    save();
+}
   render();</script></body></html>
 
 
